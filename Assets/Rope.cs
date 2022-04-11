@@ -20,7 +20,7 @@ public class Rope : MonoBehaviour
         {
             GameObject link = Instantiate(linkPrefab, transform);
             HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
-            joint.connectedBody = hook;
+            joint.connectedBody = previousRB;
 
             previousRB = link.GetComponent<Rigidbody2D>();
         }
