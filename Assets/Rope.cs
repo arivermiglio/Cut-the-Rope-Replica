@@ -6,13 +6,15 @@ public class Rope : MonoBehaviour
 
     public GameObject linkPrefab;
 
+    public Weight weighth;
+
     public int links = 7;
 
     void Start()
     {
         GenerateRope();
     }
-    
+
     void GenerateRope()
     {
         Rigidbody2D previousRB = hook;
@@ -22,7 +24,16 @@ public class Rope : MonoBehaviour
             HingeJoint2D joint = link.GetComponent<HingeJoint2D>();
             joint.connectedBody = previousRB;
 
-            previousRB = link.GetComponent<Rigidbody2D>();
+            // next links should connect to current link
+
+            if (i < links - 1)
+            {
+                previousRB = link.GetComponent<Rigidbody2D>();
+            }
+            else
+            {
+                weighth.ConnectRopeEnd(link.GetComponent<Rigidbody2D>());
+            }
         }
     }
 }
